@@ -1,5 +1,22 @@
 ##Here is ~./bashrc
 
+alias cptorcc='cp ~/.torrc_file/charging/torrc $PREFIX/etc/tor/torrc'
+
+alias cptorncc='cp ~/.torrc_file/notcharging/torrc $PREFIX/etc/tor/torrc'
+
+torch() {
+    battery_status=$(termux-battery-status)
+    is_charging=$(echo "$battery_status" | grep -o '"status": "CHARGING"')
+    pkill -f tor
+    echo -e "Is charging: $is_charging\n"    
+    if [ -n "$is_charging" ]; then
+        cptorcc
+    else
+        cptorncc
+    fi
+    return 0
+}
+
 torr() {
     if pgrep -x "tor" > /dev/null; then
         echo -e "Tor is already running.\n"
@@ -8,19 +25,6 @@ torr() {
         torch
         tor
     fi
-}
-
-torch() {
-    battery_status=$(termux-battery-status)
-    is_charging=$(echo "$battery_status" | grep -o '"status": "CHARGING"')
-    pkill -f tor
-    echo -e "Is charging: $is_charging\n"    
-    if [ -n "$is_charging" ]; then
-        cp ~/.torrc_file/charging/torrc $PREFIX/etc/tor/torrc
-    else
-        cp ~/.torrc_file/notcharging/torrc $PREFIX/etc/tor/torrc
-    fi
-    return 0
 }
 
 alias tors='torsocks'
