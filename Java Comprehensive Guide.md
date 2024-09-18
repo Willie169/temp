@@ -217,7 +217,23 @@ public class HelloWorld {
 - **`%`**: Modulus (remainder)
 
 ### **Relational Operators**
-- **`==`**: Equal to
+- **`==`**: Equal to\
+  For Primitive Types: It compares the actual values. For example:
+  ```
+  int a = 5;
+  int b = 5;
+  boolean result = (a == b);  // result is true
+  ```
+  For Reference Types: It compares the memory addresses of the objects, meaning it checks whether both references point to the same object in memory. For example:
+  ```
+  String s1 = new String("hello");
+  String s2 = new String("hello");
+  boolean result = (s1 == s2);  // result is false, because s1 and s2 refer to different objects
+  ```
+  To compare the actual content of objects, especially for classes like String, you should use the .equals() method:
+  ```
+  boolean result = s1.equals(s2);  // result is true, because the content of s1 and s2 is the same
+  ```
 - **`!=`**: Not equal to
 - **`<`**: Less than
 - **`>`**: Greater than
@@ -235,12 +251,14 @@ public class HelloWorld {
 - **`^`**: Bitwise XOR
 - **`~`**: Bitwise NOT
 - **`<<`**: Left shift
-- **`>>`**: Right shift. It shifts bits to the right and preserves the sign of the original number, just like `>>` in C++. For positive numbers, it behaves like an arithmetic shift, filling the leftmost bits with zeroes. For negative numbers, it maintains the sign by filling the leftmost bits with ones (i.e., it performs an arithmetic shift).
+- **`>>`**: Right shift\
+  It shifts bits to the right and preserves the sign of the original number, just like `>>` in C++. For positive numbers, it behaves like an arithmetic shift, filling the leftmost bits with zeroes. For negative numbers, it maintains the sign by filling the leftmost bits with ones (i.e., it performs an arithmetic shift).
   ```
   int x = -8;  // In binary: 11111111 11111111 11111111 11111000
   int result = x >> 2;  // Result: 11111111 11111111 11111111 11111110 (-2)
   ```
-- **`>>>`**: Unsigned right shift. It shifts bits to the right and fills the leftmost bits with zeroes, regardless of the original number's sign. It's used for shifting without considering the sign of the number, which is particularly useful for unsigned integers.
+- **`>>>`**: Unsigned right shift\
+  It shifts bits to the right and fills the leftmost bits with zeroes, regardless of the original number's sign. It's used for shifting without considering the sign of the number, which is particularly useful for unsigned integers.
   ```
   int x = -8;  // In binary: 11111111 11111111 11111111 11111000
   int result = x >>> 2;  // Result: 00111111 11111111 11111111 11111110 (1073741822)
