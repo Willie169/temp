@@ -5,7 +5,7 @@
 2. [Basic Syntax](#2-basic-syntax)
 3. [Data Types](#3-data-types)
 4. [Operators](#4-operators)
-5. [Casting and Type Conversion](#5-casting-and-type-conversion)
+5. [Type Casting](#5-type-casting)
 6. [Classes and Objects](#6-classes-and-objects)
 7. [Interfaces and Abstract Classes](#7-interfaces-and-abstract-classes)
 8. [Generics](#8-generics)
@@ -15,9 +15,7 @@
 12. [Reflection](#12-reflection)
 13. [Records](#13-records)
 14. [Java Modules](#14-java-modules)
-15. [Collections Framework](#15-collections-framework)
-16. [Type Parameters and Generics](#16-type-parameters-and-generics)
-17. [Best Practices and Conventions](#17-best-practices-and-conventions)
+15. [Best Practices and Conventions](#15-best-practices-and-conventions)
 
 ## 1. **Introduction to Java**
 
@@ -50,162 +48,483 @@ public class HelloWorld {
 - **`boolean`**: Represents true or false values.
 
 ### **Library Types**
-- **String**: Immutable sequence of characters.
-  - **String** class in Java is used to create and manipulate strings.
-  - Strings are immutable, meaning once created, their values cannot be changed. Operations on strings result in the creation of new string objects.
-  - Common methods:
-    - `length()`: Returns the length of the string.
-    - `substring(int start, int end)`: Extracts a substring from the string.
-    - `toUpperCase()`: Converts all characters in the string to uppercase.
-    - `toLowerCase()`: Converts all characters in the string to lowercase.
-    - `charAt(int index)`: Returns the character at the specified index.
-  ```java
-  String str = "Hello, World!";
-  System.out.println(str.length()); // Output: 13
-  System.out.println(str.substring(7, 12)); // Output: World
-  System.out.println(str.toUpperCase()); // Output: HELLO, WORLD!
-  ```
 
-- **Integer**: Wrapper class for `int`, used for converting between integers and their string representation.
-  - Provides methods for converting strings to integers and vice versa.
-  - Common methods:
-    - `parseInt(String s)`: Converts a string to an integer.
-    - `toString(int i)`: Converts an integer to a string.
-  ```java
-  int num = Integer.parseInt("123");
-  String str = Integer.toString(num);
-  System.out.println(num); // Output: 123
-  System.out.println(str); // Output: "123"
-  ```
+<ul>
+  <li>
+    <p><strong>Wrapper Classes</strong>: <strong><code>Byte</code></strong>, <strong><code>Short</code></strong>, 
+      <strong><code>Integer</code></strong>, <strong><code>Long</code></strong>, <strong><code>Float</code></strong>, 
+      <strong><code>Double</code></strong>, <strong><code>Character</code></strong>, and <strong><code>Boolean</code></strong> 
+      are Wrapper classes that provide an object representation for the eight primitive data types, allowing them to be used as objects when necessary. 
+      Each primitive data type has a corresponding wrapper class, and these wrapper classes are part of the 
+      <code>java.lang</code> package. Wrapper class objects are immutable.
+    </p>
+    <ul>
+      <li>The primitive types and their corresponding wrapper classes:
+        <table>
+          <thead>
+            <tr>
+              <th>Primitive Type</th>
+              <th>Wrapper Class</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>byte</code></td>
+              <td><code>Byte</code></td>
+            </tr>
+            <tr>
+              <td><code>short</code></td>
+              <td><code>Short</code></td>
+            </tr>
+            <tr>
+              <td><code>int</code></td>
+              <td><code>Integer</code></td>
+            </tr>
+            <tr>
+              <td><code>long</code></td>
+              <td><code>Long</code></td>
+            </tr>
+            <tr>
+              <td><code>float</code></td>
+              <td><code>Float</code></td>
+            </tr>
+            <tr>
+              <td><code>double</code></td>
+              <td><code>Double</code></td>
+            </tr>
+            <tr>
+              <td><code>char</code></td>
+              <td><code>Character</code></td>
+            </tr>
+            <tr>
+              <td><code>boolean</code></td>
+              <td><code>Boolean</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li><strong>Use in Collections</strong>: Java collections like <code>ArrayList</code> can only hold objects, not primitive types. Wrapper classes allow you to store primitive values in collections.
+        <pre><code class="lang-java">ArrayList&lt;Integer&gt; numbers = new ArrayList&lt;&gt;();
+numbers.add(10);  // Autoboxing of int to Integer
+        </code></pre>
+      </li>
+      <li><strong>Autoboxing and Unboxing</strong>: Java automatically converts between primitive types and their corresponding wrapper classes. This is called <strong>autoboxing</strong> (primitive to wrapper) and <strong>unboxing</strong> (wrapper to primitive). For example:
+        <pre><code class="lang-java">int primitive = 10;
+Integer wrapper = primitive;  // Autoboxing
+int newPrimitive = wrapper;  // Unboxing
+        </code></pre>
+      </li>
+      <li><strong>Object Methods</strong>: Primitive types do not have methods, but wrapper classes provide methods for performing operations such as comparison, conversion, etc.
+        <ul>
+          <li><strong>Byte</strong>:
+            <ul>
+              <li><code>parseByte(String s)</code>: Converts a string to a byte.</li>
+              <li><code>toString(byte b)</code>: Converts a byte to a string.</li>
+              <li><code>compareTo(Byte b)</code>: Compares two Byte objects.</li>
+            </ul>
+            <pre><code class="lang-java">byte b = Byte.parseByte("12");
+String str = Byte.toString(b);
+int comparison = Byte.valueOf(b).compareTo((byte) 10);
+            </code></pre>
+          </li>
+          <li><strong>Short</strong>:
+            <ul>
+              <li><code>parseShort(String s)</code>: Converts a string to a short.</li>
+              <li><code>toString(short s)</code>: Converts a short to a string.</li>
+              <li><code>compareTo(Short s)</code>: Compares two Short objects.</li>
+            </ul>
+            <pre><code class="lang-java">short s = Short.parseShort("123");
+String str = Short.toString(s);
+int comparison = Short.valueOf(s).compareTo((short) 100);
+            </code></pre>
+          </li>
+          <li><strong>Integer</strong>:
+            <ul>
+              <li><code>parseInt(String s)</code>: Converts a string to an integer.</li>
+              <li><code>toString(int i)</code>: Converts an integer to a string.</li>
+              <li><code>compareTo(Integer i)</code>: Compares two Integer objects.</li>
+            </ul>
+            <pre><code class="lang-java">int num = Integer.parseInt("123");
+String str = Integer.toString(num);
+int comparison = Integer.valueOf(num).compareTo(100);
+            </code></pre>
+          </li>
+          <li><strong>Long</strong>:
+            <ul>
+              <li><code>parseLong(String s)</code>: Converts a string to a long.</li>
+              <li><code>toString(long l)</code>: Converts a long to a string.</li>
+              <li><code>compareTo(Long l)</code>: Compares two Long objects.</li>
+            </ul>
+            <pre><code class="lang-java">long l = Long.parseLong("123456789");
+String str = Long.toString(l);
+int comparison = Long.valueOf(l).compareTo(100000L);
+            </code></pre>
+          </li>
+          <li><strong>Float</strong>:
+            <ul>
+              <li><code>parseFloat(String s)</code>: Converts a string to a float.</li>
+              <li><code>toString(float f)</code>: Converts a float to a string.</li>
+              <li><code>compareTo(Float f)</code>: Compares two Float objects.</li>
+            </ul>
+            <pre><code class="lang-java">float f = Float.parseFloat("3.14");
+String str = Float.toString(f);
+int comparison = Float.valueOf(f).compareTo(2.71f);
+            </code></pre>
+          </li>
+          <li><strong>Double</strong>:
+            <ul>
+              <li><code>parseDouble(String s)</code>: Converts a string to a double.</li>
+              <li><code>toString(double d)</code>: Converts a double to a string.</li>
+              <li><code>compareTo(Double d)</code>: Compares two Double objects.</li>
+            </ul>
+            <pre><code class="lang-java">double d = Double.parseDouble("3.14159");
+String str = Double.toString(d);
+int comparison = Double.valueOf(d).compareTo(2.71828);
+            </code></pre>
+          </li>
+          <li><strong>Character</strong>:
+            <ul>
+              <li><code>isDigit(char ch)</code>: Checks if the character is a digit.</li>
+              <li><code>isLetter(char ch)</code>: Checks if the character is a letter.</li>
+              <li><code>toUpperCase(char ch)</code>: Converts a character to uppercase.</li>
+              <li><code>toLowerCase(char ch)</code>: Converts a character to lowercase.</li>
+            </ul>
+            <pre><code class="lang-java">char ch = 'a';
+boolean isDigit = Character.isDigit(ch);
+boolean isLetter = Character.isLetter(ch);
+char upper = Character.toUpperCase(ch);
+char lower = Character.toLowerCase('B');
+            </code></pre>
+          </li>
+          <li><strong>Boolean</strong>:
+            <ul>
+              <li><code>parseBoolean(String s)</code>: Converts a string to a boolean.</li>
+              <li><code>toString(boolean b)</code>: Converts a boolean to a string.</li>
+              <li><code>compareTo(Boolean b)</code>: Compares two Boolean objects.</li>
+            </ul>
+            <pre><code class="lang-java">boolean bool = Boolean.parseBoolean("true");
+String str = Boolean.toString(bool);
+int comparison = Boolean.valueOf(bool).compareTo(false);
+            </code></pre>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
 
-- **Double**: Wrapper class for `double`, used for handling double-precision floating-point numbers.
-  - Provides methods for converting between doubles and their string representation.
-  - Common methods:
-    - `parseDouble(String s)`: Converts a string to a double.
-    - `toString(double d)`: Converts a double to a string.
-  ```java
-  double num = Double.parseDouble("3.14");
-  String str = Double.toString(num);
-  System.out.println(num); // Output: 3.14
-  System.out.println(str); // Output: "3.14"
-  ```
-
-- **Character**: Wrapper class for `char`, provides utility methods for handling characters.
-  - Common methods:
-    - `isDigit(char ch)`: Checks if the character is a digit.
-    - `isLetter(char ch)`: Checks if the character is a letter.
-  ```java
-  char ch = 'A';
-  boolean isDigit = Character.isDigit(ch);
-  boolean isLetter = Character.isLetter(ch);
-  System.out.println(isDigit); // Output: false
-  System.out.println(isLetter); // Output: true
-  ```
-
-- **BigInteger**: For handling arbitrarily large integers.
-  - **BigInteger** provides methods for arithmetic, modular arithmetic, bit manipulation, and prime number generation.
-  - Common methods:
-    - `add(BigInteger val)`: Adds two BigInteger values.
-    - `subtract(BigInteger val)`: Subtracts one BigInteger value from another.
-  ```java
-  BigInteger bigInt1 = new BigInteger("12345678901234567890");
-  BigInteger bigInt2 = new BigInteger("98765432109876543210");
-  BigInteger sum = bigInt1.add(bigInt2);
-  System.out.println(sum); // Output: 111111111011111111100
-  ```
-
-- **BigDecimal**: For handling arbitrary-precision decimal numbers.
-  - **BigDecimal** is used for high-precision arithmetic operations on floating-point numbers.
-  - Common methods:
-    - `add(BigDecimal val)`: Adds two BigDecimal values.
-    - `divide(BigDecimal val)`: Divides this BigDecimal by another BigDecimal.
-  ```java
-  BigDecimal bd1 = new BigDecimal("12345.6789");
-  BigDecimal bd2 = new BigDecimal("9876.54321");
-  BigDecimal result = bd1.add(bd2);
-  System.out.println(result); // Output: 22222.22211
-  ```
-
-- **Wrapper Classes**
-  - **`Byte`**, **`Short`**, **`Integer`**, **`Long`**, **`Float`**, **`Double`**, **`Character`**, **`Boolean`**: Wrapper classes that provide object representations for the primitive types. They also include utility methods.
-
-- **`ArrayList`**: A resizable array implementation of the `List` interface. It allows for fast random access and dynamic resizing.
-  ```java
-  ArrayList<String> list = new ArrayList<>();
-  list.add("Apple");
-  list.add("Banana");
-  ```
+- **Container Classes**:
+  - **BigInteger**: For handling arbitrarily large integers.
+    - **BigInteger** provides methods for arithmetic, modular arithmetic, bit manipulation, and prime number generation.
+    - Static methods:
+      - `add(BigInteger val)`: Adds two BigInteger values.
+      - `subtract(BigInteger val)`: Subtracts one BigInteger value from another.
+    ```java
+    BigInteger bigInt1 = new BigInteger("12345678901234567890");
+    BigInteger bigInt2 = new BigInteger("98765432109876543210");
+    BigInteger sum = bigInt1.add(bigInt2);
+    System.out.println(sum); // Output: 111111111011111111100
+    ```
   
-- **`LinkedList`**: Implements both the `List` and `Deque` interfaces. It is a doubly-linked list that allows for fast insertions and deletions.
+  - **BigDecimal**: For handling arbitrary-precision decimal numbers.
+    - **BigDecimal** is used for high-precision arithmetic operations on floating-point numbers.
+    - Static methods:
+      - `add(BigDecimal val)`: Adds two BigDecimal values.
+      - `divide(BigDecimal val)`: Divides this BigDecimal by another BigDecimal.
+    ```java
+    BigDecimal bd1 = new BigDecimal("12345.6789");
+    BigDecimal bd2 = new BigDecimal("9876.54321");
+    BigDecimal result = bd1.add(bd2);
+    System.out.println(result); // Output: 22222.22211
+    ```
+  
+  - **String**: Immutable sequence of characters.
+    - **String** class in Java is used to create and manipulate strings.
+    - Strings are immutable, meaning once created, their values cannot be changed. Operations on strings result in the creation of new string objects.
+    - Static methods:
+      - `length()`: Returns the length of the string.
+      - `substring(int start, int end)`: Extracts a substring from the string.
+      - `toUpperCase()`: Converts all characters in the string to uppercase.
+      - `toLowerCase()`: Converts all characters in the string to lowercase.
+      - `charAt(int index)`: Returns the character at the specified index.
+    ```java
+    String str = "Hello, World!";
+    System.out.println(str.length()); // Output: 13
+    System.out.println(str.substring(7, 12)); // Output: World
+    System.out.println(str.toUpperCase()); // Output: HELLO, WORLD!
+    ```
+  
+  - **`StringBuilder`**: A mutable sequence of characters. It is used for creating and manipulating strings.
+    ```java
+    StringBuilder sb = new StringBuilder();
+    sb.append("Hello");
+    sb.append(" World");
+    System.out.println(sb.toString()); // Output: Hello World
+    ```
+  
+  - **`StringBuffer`**: Similar to `StringBuilder` but is synchronized, making it thread-safe.
+    ```java
+    StringBuffer sb = new StringBuffer();
+    sb.append("Hello");
+    sb.append(" World");
+    System.out.println(sb.toString()); // Output: Hello World
+    ```
+  
+  - **`Optional`**: A container object which may or may not contain a non-null value. Used to avoid null checks.
+    ```java
+    Optional<String> optional = Optional.of("Hello");
+    optional.ifPresent(System.out::println); // Output: Hello
+    ```
+  
+  - **`ArrayList`**: A resizable array implementation of the `List` interface. It allows for fast random access and dynamic resizing.
+    ```java
+    ArrayList<String> list = new ArrayList<>();
+    list.add("Apple");
+    list.add("Banana");
+    ```
+    
+  - **`LinkedList`**: Implements both the `List` and `Deque` interfaces. It is a doubly-linked list that allows for fast insertions and deletions.
+    ```java
+    LinkedList<String> linkedList = new LinkedList<>();
+    linkedList.add("Apple");
+    linkedList.add("Banana");
+    ```
+
+  - **`PriorityQueue`**: An implementation of the `Queue` interface that orders its elements according to their natural ordering or by a specified comparator. Elements with higher priority are dequeued before elements with lower priority. It does not allow `null` elements and does not guarantee the order of elements with the same priority. `PriorityQueue` is useful when you need to process elements based on priority, such as in scheduling tasks or implementing Dijkstra’s algorithm.
   ```java
-  LinkedList<String> linkedList = new LinkedList<>();
-  linkedList.add("Apple");
-  linkedList.add("Banana");
+  PriorityQueue<String> priorityQueue = new PriorityQueue<>();
+  priorityQueue.add("Banana");
+  priorityQueue.add("Apple");
+  priorityQueue.add("Cherry");
+  
+  while (!priorityQueue.isEmpty()) {
+      System.out.println(priorityQueue.poll());
+  }
+  // Output (natural ordering of strings):
+  // Apple
+  // Banana
+  // Cherry
   ```
 
-- **`HashSet`**: A collection that does not allow duplicate elements and does not guarantee any order of its elements.
-  ```java
-  Set<String> set = new HashSet<>();
-  set.add("Apple");
-  set.add("Banana");
-  ```
+  - **`ArrayDeque`**: A resizable array implementation of the `Deque` (double-ended queue) interface. It allows elements to be added or removed from both ends of the queue efficiently. It is faster than `LinkedList` for these operations due to its array-based structure.
+    ```java
+    ArrayDeque<String> deque = new ArrayDeque<>();
+    deque.addFirst("Apple"); // Adds to the front of the deque
+    deque.addLast("Banana"); // Adds to the end of the deque
+    System.out.println(deque.removeFirst()); // Output: Apple
+    System.out.println(deque.removeLast());  // Output: Banana
+    ```
 
-- **`TreeSet`**: A `NavigableSet` implementation that uses a Red-Black tree to store elements in a sorted order.
-  ```java
-  Set<String> treeSet = new TreeSet<>();
-  treeSet.add("Banana");
-  treeSet.add("Apple");
-  ```
+  - **`HashSet`**: A collection that does not allow duplicate elements and does not guarantee any order of its elements.
+    ```java
+    Set<String> set = new HashSet<>();
+    set.add("Apple");
+    set.add("Banana");
+    ```
+  
+  - **`TreeSet`**: A `NavigableSet` implementation that uses a Red-Black tree to store elements in a sorted order.
+    ```java
+    Set<String> treeSet = new TreeSet<>();
+    treeSet.add("Banana");
+    treeSet.add("Apple");
+    ```
+  
+  - **`LinkedHashSet`**: A hash table and linked list implementation of the `Set` interface that maintains insertion order. Unlike `HashSet`, it guarantees that elements are iterated in the order they were added.
+    ```java
+    Set<String> linkedHashSet = new LinkedHashSet<>();
+    linkedHashSet.add("Apple");
+    linkedHashSet.add("Banana");
+    linkedHashSet.add("Cherry");
+    
+    for (String fruit : linkedHashSet) {
+        System.out.println(fruit);
+    }
+    // Output:
+    // Apple
+    // Banana
+    // Cherry
+    ```
+  
+  - **`HashMap`**: A hash table based implementation of the `Map` interface. It allows for efficient key-value pair operations.
+    ```java
+    Map<String, Integer> map = new HashMap<>();
+    map.put("One", 1);
+    map.put("Two", 2);
+    ```
+  
+  - **`TreeMap`**: A `NavigableMap` implementation that uses a Red-Black tree to store key-value pairs in a sorted order by keys.
+    ```java
+    Map<String, Integer> treeMap = new TreeMap<>();
+    treeMap.put("One", 1);
+    treeMap.put("Two", 2);
+    ```
+  
+  - **`LinkedHashMap`**: A hash table and linked list implementation of the `Map` interface with predictable iteration order.
+    ```java
+    Map<String, Integer> linkedHashMap = new LinkedHashMap<>();
+    linkedHashMap.put("One", 1);
+    linkedHashMap.put("Two", 2);
+    ```
+  
+  - **`Files`**: Provides static methods for file operations, such as reading, writing, and manipulating files.
+    ```java
+    Path path = Paths.get("example.txt");
+    String content = Files.readString(path);
+    System.out.println(content);
+    ```
+  
+  - **`Paths`**: Provides static methods to obtain `Path` instances, used for file system operations.
+    ```java
+    Path path = Paths.get("example.txt");
+    System.out.println(path.getFileName());
+    ```
+  
+  - **`PrintWriter`**: A convenience class for writing formatted text to files or other output streams.
+    ```java
+    PrintWriter writer = new PrintWriter("example.txt");
+    writer.println("Hello, World!");
+    writer.close();
+    ```
+  
+  - **`BufferedReader`**: Reads text from a character-based input stream, buffering characters to provide efficient reading.
+    ```java
+    BufferedReader reader = new BufferedReader(new FileReader("example.txt"));
+    String line = reader.readLine();
+    System.out.println(line);
+    reader.close();
+    ```
+  
+  - **`BufferedWriter`**: Writes text to a character-based output stream, buffering characters for efficient writing.
+    ```java
+    BufferedWriter writer = new BufferedWriter(new FileWriter("example.txt"));
+    writer.write("Hello, World!");
+    writer.close();
+    ```
+  
+  - **`Scanner`**: A utility class for parsing and reading input from various sources like strings, files, or streams.
+    ```java
+    Scanner scanner = new Scanner("Hello World");
+    String word = scanner.next();
+    System.out.println(word); // Output: Hello
+    scanner.close();
+    ```
+  
+  - **`ExecutorService`**: Manages and controls a pool of threads for asynchronous task execution.
+    ```java
+    ExecutorService executor = Executors.newFixedThreadPool(2);
+    executor.submit(() -> System.out.println("Task executed"));
+    executor.shutdown();
+    ```
+  
+  - **`Future`**: Represents the result of an asynchronous computation.
+    ```java
+    ExecutorService executor = Executors.newFixedThreadPool(1);
+    Future<Integer> future = executor.submit(() -> 1 + 1);
+    System.out.println(future.get()); // Output: 2
+    executor.shutdown();
+    ```
+  
+  - **`CountDownLatch`**: A synchronization aid that allows one or more threads to wait until a set of operations in other threads completes.
+    ```java
+    CountDownLatch latch = new CountDownLatch(1);
+    new Thread(() -> {
+        System.out.println("Thread started");
+        latch.countDown();
+    }).start();
+    latch.await();
+    System.out.println("Thread completed");
+    ```
+  
+  - **`Semaphore`**: Controls access to a shared resource through counting permits.
+    ```java
+    Semaphore semaphore = new Semaphore(1);
+    semaphore.acquire();
+    System.out.println("Resource acquired");
+    semaphore.release();
+    ```
+  
+  - **`AtomicInteger`**: Provides an integer value that may be updated atomically.
+    ```java
+    AtomicInteger atomicInt = new AtomicInteger(0);
+    atomicInt.incrementAndGet();
+    System.out.println(atomicInt.get()); // Output: 1
+    ```
+  
+  - **`ThreadLocal`**: Provides thread-local variables, where each thread has its own, independently initialized copy of the variable.
+    ```java
+    ThreadLocal<String> threadLocal = ThreadLocal.withInitial(() -> "Initial");
+    System.out.println(threadLocal.get()); // Output: Initial
+    ```
+  
+  - **`UUID`**: Represents a universally unique identifier (UUID).
+    ```java
+    UUID uuid = UUID.randomUUID();
+    System.out.println(uuid.toString());
+    ```
+  
+  - **`Date`**: Represents a specific instant in time, with millisecond precision.
+    ```java
+    Date date = new Date();
+    System.out.println(date.toString());
+    ```
+  
+  - **`SimpleDateFormat`**: A concrete class for formatting and parsing dates in a locale-sensitive manner.
+    ```java
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+    String dateString = formatter.format(new Date());
+    System.out.println(dateString);
+    ```
+  
+  - **`Calendar`**: An abstract class that provides methods for manipulating dates and times.
+    ```java
+    Calendar calendar = Calendar.getInstance();
+    calendar.set(2024, Calendar.SEPTEMBER, 18);
+    System.out.println(calendar.getTime());
+    ```
+  
+  - **`TimeZone`**: Represents a time zone offset, and also figures out daylight saving time.
+    ```java
+    TimeZone timeZone = TimeZone.getTimeZone("GMT");
+    System.out.println(timeZone.getID());
+    ```
+  
+  - **`LocalDate`, `LocalTime`, `LocalDateTime`**: Part of the `java.time` package for handling date and time without time zones.
+    ```java
+    LocalDate date = LocalDate.now();
+    LocalTime time = LocalTime.now();
+    LocalDateTime dateTime = LocalDateTime.now();
+    System.out.println(date);
+    System.out.println(time);
+    System.out.println(dateTime);
+    ```
+  
+  - **`DateTimeFormatter`**: Provides a way to format and parse dates and times.
+    ```java
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    LocalDate date = LocalDate.now();
+    String formattedDate = date.format(formatter);
+    System.out.println(formattedDate);
+    ```
+  
+  - **`Calendar`**: An abstract class that provides methods for manipulating dates and times.
+    ```java
+    Calendar calendar = Calendar.getInstance();
+    calendar.set(2024, Calendar.SEPTEMBER, 18);
+    System.out.println(calendar.getTime());
+    ```
 
-- **`HashMap`**: A hash table based implementation of the `Map` interface. It allows for efficient key-value pair operations.
-  ```java
-  Map<String, Integer> map = new HashMap<>();
-  map.put("One", 1);
-  map.put("Two", 2);
-  ```
-
-- **`TreeMap`**: A `NavigableMap` implementation that uses a Red-Black tree to store key-value pairs in a sorted order by keys.
-  ```java
-  Map<String, Integer> treeMap = new TreeMap<>();
-  treeMap.put("One", 1);
-  treeMap.put("Two", 2);
-  ```
-
-- **`LinkedHashMap`**: A hash table and linked list implementation of the `Map` interface with predictable iteration order.
-  ```java
-  Map<String, Integer> linkedHashMap = new LinkedHashMap<>();
-  linkedHashMap.put("One", 1);
-  linkedHashMap.put("Two", 2);
-  ```
-
-- **`Calendar`**: An abstract class that provides methods for manipulating dates and times.
-  ```java
-  Calendar calendar = Calendar.getInstance();
-  calendar.set(2024, Calendar.SEPTEMBER, 18);
-  System.out.println(calendar.getTime());
-  ```
-
-- **`StringBuilder`**: A mutable sequence of characters. It is used for creating and manipulating strings.
-  ```java
-  StringBuilder sb = new StringBuilder();
-  sb.append("Hello");
-  sb.append(" World");
-  System.out.println(sb.toString()); // Output: Hello World
-  ```
-
-- **`StringBuffer`**: Similar to `StringBuilder` but is synchronized, making it thread-safe.
-  ```java
-  StringBuffer sb = new StringBuffer();
-  sb.append("Hello");
-  sb.append(" World");
-  System.out.println(sb.toString()); // Output: Hello World
-  ```
-
-- **`Optional`**: A container object which may or may not contain a non-null value. Used to avoid null checks.
-  ```java
-  Optional<String> optional = Optional.of("Hello");
-  optional.ifPresent(System.out::println); // Output: Hello
-  ```
+- **Collections Framework**: Collections Framework is unified architecture for representing and manipulating collections, allowing for efficient data manipulation.
+  - **`Collection`**: The root interface of the collection hierarchy. It includes common operations like `add`, `remove`, and `size`.
+  
+  - **`List`**: An ordered collection (also known as a sequence) that may contain duplicate elements. Elements can be accessed by their integer index (position in the list). The common implementation for `List` are `ArrayList` and `LinkedList`.
+  
+  - **`Set`**: A collection that does not allow duplicate elements. The common implementation for `Set` are `HashSet`, `TreeSet`, and `LinkedHashSet`.
+  
+  - **`Map`**: An object that maps keys to values. It cannot contain duplicate keys, and each key can map to at most one value. The common implementation for `Map` are `HashMap`, `TreeMap`, and `LinkedHashMap`.
+  
+  - **`Queue`**: A collection used to hold multiple elements prior to processing. It typically orders elements in a FIFO (First In First Out) manner. The common implementation for `Queue` are `LinkedList` and `PriorityQueue`.
+  
+  - **`Deque`**: A double-ended queue that allows for the insertion and removal of elements from both ends. The common implementation for `Queue` are `LinkedList` and `ArrayDeque`.
 
 ## 4. **Operators**
 
@@ -218,19 +537,19 @@ public class HelloWorld {
 
 ### **Relational Operators**
 - **`==`**: Equal to\
-  For Primitive Types: It compares the actual values. For example:
+  For Primitive Types: It compares the actual values, like `==` in Python. For example:
   ```
   int a = 5;
   int b = 5;
   boolean result = (a == b);  // result is true
   ```
-  For Reference Types: It compares the memory addresses of the objects, meaning it checks whether both references point to the same object in memory. For example:
+  For Reference Types: It compares the memory addresses of the objects, meaning it checks whether both references point to the same object in memory, like `is` in Python. For example:
   ```
   String s1 = new String("hello");
   String s2 = new String("hello");
   boolean result = (s1 == s2);  // result is false, because s1 and s2 refer to different objects
   ```
-  To compare the actual content of objects, especially for classes like String, you should use the .equals() method:
+  To compare the actual content of objects, especially for classes like String, you should use the `.equals()` method:
   ```
   boolean result = s1.equals(s2);  // result is true, because the content of s1 and s2 is the same
   ```
@@ -272,9 +591,7 @@ public class HelloWorld {
 - **`/=`**: Division assignment
 - **`%=`**: Modulus assignment
 
-## 5. **Casting and Type Conversion**
-
-### **Type Casting**
+## 5. **Type Casting**
 - **Implicit Casting**: Automatically done by Java when converting from a smaller to a larger data type.
   ```java
   int i = 10;
@@ -714,178 +1031,7 @@ obj.display();
     }
     ```
 
-## 15. **Collections Framework**
-
-### **Overview**
-- **Collections Framework**: A unified architecture for representing and manipulating collections, allowing for efficient data manipulation.
-
-### **Core Interfaces**
-
-- **`Collection`**: The root interface of the collection hierarchy. It includes common operations like `add`, `remove`, and `size`.
-  
-- **`List`**: An ordered collection (also known as a sequence) that may contain duplicate elements. Elements can be accessed by their integer index (position in the list).
-  - **`ArrayList`**: A resizable array implementation of `List`. It provides fast random access and is preferable when frequent access operations are needed.
-    ```java
-    List<String> list = new ArrayList<>();
-    list.add("Apple");
-    list.add("Banana");
-    ```
-  - **`LinkedList`**: Implements `List` and `Deque` interfaces. It provides better performance for insertions and deletions compared to `ArrayList`.
-    ```java
-    List<String> linkedList = new LinkedList<>();
-    linkedList.add("Apple");
-    linkedList.add("Banana");
-    ```
-
-- **`Set`**: A collection that does not allow duplicate elements. 
-  - **`HashSet`**: Stores elements in a hash table. It does not guarantee any specific order of its elements.
-    ```java
-    Set<String> set = new HashSet<>();
-    set.add("Apple");
-    set.add("Banana");
-    ```
-  - **`TreeSet`**: Implements `NavigableSet` and stores elements in a sorted order. It uses a Red-Black tree internally.
-    ```java
-    Set<String> treeSet = new TreeSet<>();
-    treeSet.add("Banana");
-    treeSet.add("Apple");
-    ```
-  - **`LinkedHashSet`**: Maintains insertion order. It combines the features of hash table and linked list.
-
-- **`Map`**: An object that maps keys to values. It cannot contain duplicate keys, and each key can map to at most one value.
-  - **`HashMap`**: A hash table based implementation of `Map`. It allows null values and keys and does not guarantee any specific order of its entries.
-    ```java
-    Map<String, Integer> map = new HashMap<>();
-    map.put("One", 1);
-    map.put("Two", 2);
-    ```
-  - **`TreeMap`**: A `NavigableMap` implementation that uses a Red-Black tree to store key-value pairs in a sorted order by keys.
-    ```java
-    Map<String, Integer> treeMap = new TreeMap<>();
-    treeMap.put("One", 1);
-    treeMap.put("Two", 2);
-    ```
-  - **`LinkedHashMap`**: A hash table and linked list implementation of `Map` that maintains insertion order.
-    ```java
-    Map<String, Integer> linkedHashMap = new LinkedHashMap<>();
-    linkedHashMap.put("One", 1);
-    linkedHashMap.put("Two", 2);
-    ```
-
-- **`Queue`**: A collection used to hold multiple elements prior to processing. It typically orders elements in a FIFO (First In First Out) manner.
-  - **`LinkedList`**: Implements both `Queue` and `Deque` interfaces. It can be used as a queue or stack.
-    ```java
-    Queue<String> queue = new LinkedList<>();
-    queue.add("First");
-    queue.add("Second");
-    ```
-
-- **`Deque`**: A double-ended queue that allows for the insertion and removal of elements from both ends.
-  - **`ArrayDeque`**: Provides a resizable array implementation of the `Deque` interface.
-    ```java
-    Deque<String> deque = new ArrayDeque<>();
-    deque.addFirst("First");
-    deque.addLast("Last");
-    ```
-  
-- **`Tuple`**: Java does not have a built-in `Tuple` class, but tuples can be implemented using records or third-party libraries like Apache Commons Lang or Vavr.
-  - **Example with Records**:
-    ```java
-    public record Tuple<K, V>(K key, V value) { }
-
-    public class Test {
-        public static void main(String[] args) {
-            Tuple<String, Integer> tuple = new Tuple<>("One", 1);
-            System.out.println(tuple.key());  // Output: One
-            System.out.println(tuple.value()); // Output: 1
-        }
-    }
-    ```
-  
-- **`StringBuilder` and `StringBuffer`**: Classes for mutable strings.
-  - **`StringBuilder`**: Provides a mutable sequence of characters. It is faster but not synchronized.
-    ```java
-    StringBuilder sb = new StringBuilder();
-    sb.append("Hello");
-    sb.append(" World");
-    System.out.println(sb.toString()); // Output: Hello World
-    ```
-  - **`StringBuffer`**: Similar to `StringBuilder`, but synchronized, making it thread-safe.
-    ```java
-    StringBuffer sb = new StringBuffer();
-    sb.append("Hello");
-    sb.append(" World");
-    System.out.println(sb.toString()); // Output: Hello World
-    ```
-
-- **`Optional`**: A container object which may or may not contain a non-null value. Useful for avoiding null checks and handling optional values.
-  ```java
-  Optional<String> optional = Optional.of("Hello");
-  optional.ifPresent(System.out::println); // Output: Hello
-  ```
-
-## 16. **Type Parameters and Generics**
-
-### **Type Parameters**
-- **Definition**: Generics enable you to write a single class or method that can work with any type.
-- **Example**:
-  ```java
-  public class Container<T> {
-      private T item;
-
-      public void setItem(T item) {
-          this.item = item;
-      }
-
-      public T getItem() {
-          return item;
-      }
-  }
-
-  public class Test {
-      public static void main(String[] args) {
-          Container<String> stringContainer = new Container<>();
-          stringContainer.setItem("Hello");
-          System.out.println(stringContainer.getItem()); // Output: Hello
-
-          Container<Integer> intContainer = new Container<>();
-          intContainer.setItem(123);
-          System.out.println(intContainer.getItem()); // Output: 123
-      }
-  }
-  ```
-
-### **Generic Classes with Multiple Parameters**
-- **Definition**: You can have multiple type parameters in a single generic class.
-- **Example**:
-  ```java
-  public class Pair<K, V> {
-      private K key;
-      private V value;
-
-      public Pair(K key, V value) {
-          this.key = key;
-          this.value = value;
-      }
-
-      public K getKey() {
-          return key;
-      }
-
-      public V getValue() {
-          return value;
-      }
-  }
-
-  public class Test {
-      public static void main(String[] args) {
-          Pair<String, Integer> pair = new Pair<>("Age", 30);
-          System.out.println(pair.getKey() + ": " + pair.getValue()); // Output: Age: 30
-      }
-  }
-  ```
-
-## 17. **Best Practices and Conventions**
+## 15. **Best Practices and Conventions**
 
 ### **Naming Conventions**
 - **Classes**: Use PascalCase (e.g., `MyClass`).
