@@ -1,48 +1,56 @@
 import re
 
-def generate_toc(md_content):
-    # Regular expressions for headers
-    header_pattern = re.compile(r'^(##|###)\s+(.*)$')
+def generate_toc(input_file='README.md', output_file='TOC.md', encoding='utf-8'):
+    # Regular expression to match ## and ### headers
+    header_regex = r'^(?P<level>#{2,3})\s+(?P<title>.+?)\s*$'
+    code_block_regex = r'(`{3}|\s*#)'  # Matches code blocks and comments
+
+    toc = []
+    in_code_block = False
+
+    # Read the markdown content from the input file
+    try:
+        with open(input_file, 'r', encoding=encoding) as f:
+            markdown_content = f.read()
+    except FileNotFoundError:
+        print(f"Error: The file '{input_file}' was not found.")
+        return
+    except Exception as e:
+        print(f"Error reading '{input_file}': {e}")
+        return
     
-    toc_lines = []
-    last_level = 0
-    
-    def format_header_text(header_text):
-        # Convert header text to a URL-friendly format
-        return re.sub(r'[^\w\s-]', '', header_text).strip().lower().replace(' ', '-')
-    
-    for line in md_content.splitlines():
-        match = header_pattern.match(line)
+    # Iterate through each line in the markdown content
+    for line in markdown_content.splitlines():
+        # Check if the line starts a code block
+        if re.match(r'```', line):
+            in_code_block = not in_code_block  # Toggle in_code_block status
+
+        # If we are in a code block, skip header checks
+        if in_code_block:
+            continue
+
+        # Match headers only if outside of code blocks
+        match = re.match(header_regex, line)
         if match:
-            header_level, header_text = match.groups()
-            level = 2 if header_level == '##' else 3
+            level = match.group('level')
+            title = match.group('title')
+            # Convert the title into a URL-friendly format
+            link = title.lower().replace(' ', '-').replace('\'', '').replace('\"', '')
+            link = re.sub(r'[^a-z0-9\-]', '', link)  # Remove any unwanted characters
             
-            header_id = format_header_text(header_text)
-            
-            if level == 2:
-                if last_level == 3:
-                    toc_lines.append('')
-                toc_lines.append(f'- [{header_text}](#{header_id})')
-            elif level == 3:
-                toc_lines.append(f'  - [{header_text}](#{header_id})')
-            
-            last_level = level
+            if level == '##':  # Level 2 header
+                toc.append(f"- [{title}](#{link})")
+            elif level == '###':  # Level 3 header
+                toc.append(f"  - [{title}](#{link})")
     
-    return '\n'.join(toc_lines).replace('\n\n', '\n')
+    # Write the generated TOC to the output file
+    try:
+        with open(output_file, 'w', encoding=encoding) as f:
+            f.write('\n'.join(toc))
+        print(f"Table of Contents successfully generated and written to '{output_file}'.")
+    except Exception as e:
+        print(f"Error writing to '{output_file}': {e}")
 
-def main():
-    input_file = 'README.md'  # Input markdown file
-    output_file = 'toc.md'     # Output TOC file
-    
-    with open(input_file, 'r') as f:
-        md_content = f.read()
-    
-    toc = generate_toc(md_content)
-    
-    with open(output_file, 'w') as f:
-        f.write(toc)
-
-    print(f'TOC has been written to {output_file}')
-
-if __name__ == '__main__':
-    main()
+# Example usage
+if __name__ == "__main__":
+    generate_toc()  # Uses default input and output file names and encoding
