@@ -1,5 +1,10 @@
 ##This is ~./bashrc
 
+export CLASSPATH=".:/data/data/com.termux/files/usr/lib/antlr-4.13.2-complete.jar:$CLASSPATH"
+
+alias antlr4='java -jar /data/data/com.termux/files/usr/lib/antlr-4.13.2-complete.jar'
+alias grun='java org.antlr.v4.runtime.misc.TestRig'
+
 alias cptorcc='cp ~/.torrc_file/charging/torrc $PREFIX/etc/tor/torrc'
 alias cptorncc='cp ~/.torrc_file/notcharging/torrc $PREFIX/etc/tor/torrc'
 
