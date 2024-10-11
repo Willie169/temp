@@ -22,7 +22,7 @@ cd ~/xmrig/build
 - --cpu-max-threads-hint: Hint for the maximum of CPU threads, seems to be a percentage, so 1 to 100 is allowed.
 ## Make it executable:
 ```
-chmod a+x xmrig.sh
+chmod +x xmrig.sh
 ```
 ## Run
 ```

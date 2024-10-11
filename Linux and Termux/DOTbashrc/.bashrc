@@ -35,27 +35,27 @@ torc() {
 alias tors='torsocks'
 
 mvod() {
-    mv "/data/data/com.termux/files/home/debian-fs/root/Desktop/$1" "/storage/emulated/0/Download/"
+    mv "/data/data/com.termux/files/home/debian1/debian-fs/root/Desktop/$1" "/storage/emulated/0/Download/"
 }
 
 cpod() {
-    cp "/data/data/com.termux/files/home/debian-fs/root/Desktop/$1" "/storage/emulated/0/Download/"
+    cp "/data/data/com.termux/files/home/debian1/debian-fs/root/Desktop/$1" "/storage/emulated/0/Download/"
 }
 
 cprod() {
-    cp -r "/data/data/com.termux/files/home/debian-fs/root/Desktop/$1" "/storage/emulated/0/Download/"
+    cp -r "/data/data/com.termux/files/home/debian1/debian-fs/root/Desktop/$1" "/storage/emulated/0/Download/"
 }
 
 mvid() {
-    mv "/storage/emulated/0/Download/$1" "/data/data/com.termux/files/home/debian-fs/root/Desktop/"
+    mv "/storage/emulated/0/Download/$1" "/data/data/com.termux/files/home/debian1/debian-fs/root/Desktop/"
 }
 
 cpid() {
-    cp "/storage/emulated/0/Download/$1" "/data/data/com.termux/files/home/debian-fs/root/Desktop/"
+    cp "/storage/emulated/0/Download/$1" "/data/data/com.termux/files/home/debian1/debian-fs/root/Desktop/"
 }
 
 cprid() {
-    cp -r "/storage/emulated/0/Download/$1" "/data/data/com.termux/files/home/debian-fs/root/Desktop/"
+    cp -r "/storage/emulated/0/Download/$1" "/data/data/com.termux/files/home/debian1/debian-fs/root/Desktop/"
 }
 
 mvic() {

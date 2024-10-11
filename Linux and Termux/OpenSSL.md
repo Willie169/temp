@@ -1,54 +1,57 @@
-# OpenSSL
-## pkg installation
+## OpenSSL
+### Introduction about OpenSSL
+**OpenSSL** is a widely used open-source software library that implements the Secure Sockets Layer (SSL) and Transport Layer Security (TLS) protocols. It provides a robust set of cryptographic functions and tools for secure communication over networks.
+### Installation of OpenSSL in Termux
 ```
-pkg install openssl
-pkg install openssl-tool
+pkg install openssl openssl-tool
 ```
-## RSA
-### Private and public key pair generation
-#### Generate a new RSA private key with 2048 iterations
+### Installation of OpenSSL in Debian
+```
+sudo apt install openssl libssl-dev
+```
+### RSA
+#### Generate New Private Key
 ```
 openssl genrsa -out /path/privatekeyfilename.pem 2048
 ```
-#### Generate a public key from a private key
+`2048` means 2048 iterations, change the number as needed.
+#### Generate Public Key from Private Key
 ```
 openssl rsa -pubout -in /path/privatekeyfilename.pem -out /path/publickeyfilename.pem
 ```
-### Encryption and decryption
-#### Public key encryption
+#### Encrypt with Public Key
 ```
 openssl pkeyutl -in /path/filename.txt -out /path/publickeyencryptedfilename.txt -inkey /path/publickeyfilename.pem -pubin -encrypt
 ```
-#### Private key decryption
+#### Decrypt with Public Key
 ```
 openssl pkeyutl -in /path/publickeyencryptedfilename.txt -out /path/filename.txt -inkey /path/privatekeyfilename.pem -decrypt
 ```
-#### Private key encryption
+#### Encrypt with Private Key
 ```
 openssl pkeyutl -in /path/filename.txt -out /path/privatekeyencryptedfilename.txt -inkey /path/privatekeyfilename.pem -encrypt
 ```
-#### Public key decryption
+#### Decrypt with Private Key
 ```
 openssl pkeyutl -in /path/privatekeyencryptedfilename.txt -out /path/filename.txt -inkey /path/publickeyfilename.pem -pubin -decrypt
 ```
-### Sign and verify
-#### Sign a raw file
+#### Sign a Raw File
 ```
 openssl pkeyutl -in filename.txt -rawin -out signed_filename.txt -inkey keyfile/privatekeyfile.pem -sign
 ```
-#### Sign a hex file
+#### Sign a Hex File
 ```
 openssl pkeyutl -in hexfilename.txt -out signed_filename.txt -inkey keyfile/privatekeyfile.pem -sign
 ```
-#### Verify a signature against a raw file
+#### Verify a Signature Against a Raw File
 ```
 openssl pkeyutl -in filename.txt -rawin -out verification.txt -sigfile signed_filename.txt -inkey keyfile/publickeyfile.pem -pubin -verify
 ```
-#### Verify a signature against a hex file
+#### Verify a Signature Against a Hex File
 ```
 openssl pkeyutl -in hexfilename.txt -rawin -out verification.txt -sigfile signed_filename.txt -inkey keyfile/publickeyfile.pem -pubin -verify
 ```
-### All command options
+#### All Command Options
 ```
 openssl pkeyutl [-help] [-in file] [-rawin] [-digest algorithm] [-out file] [-sigfile file] [-inkey filename|uri] [-keyform DER|PEM|P12|ENGINE] [-passin arg] [-peerkey file] [-peerform DER|PEM|P12|ENGINE] [-pubin] [-certin] [-rev] [-sign] [-verify] [-verifyrecover] [-encrypt] [-decrypt] [-derive] [-kdf algorithm] [-kdflen length] [-pkeyopt opt:value] [-pkeyopt_passin opt[:passarg]] [-hexdump] [-asn1parse] [-engine id] [-engine_impl] [-rand files] [-writerand file] [-provider name] [-provider-path path] [-propquery propq] [-config configfile]
 ```
@@ -94,16 +97,16 @@ openssl pkeyutl [-help] [-in file] [-rawin] [-digest algorithm] [-out file] [-si
 - -rand files, -writerand file: See "Random State Options" in openssl(1) for details.
 - -provider name: -provider-path path: -propquery propq: See "Provider Options" in openssl(1), provider(7), and property(7).
 - -config configfile: See "Configuration Option" in openssl(1).
-## Symmetric encryption and decryption
-### AES-256-CBC Encryption
+### Symmetric Encryption and Decryption
+#### AES-256-CBC Encryption
 ```
 openssl enc -aes-256-cbc -in file.rar -out encfile.rar -pass pass:1234567890123456789012345678901234567890123456789012345678901234 -base64 -iv 12345678901234567890123456789012 -S 1234567890123456 -md sha-256 -iter 2048 -pbkdf2 -p
 ```
-### AES-256-CBC Decryption
+#### AES-256-CBC Decryption
 ```
 openssl enc -aes-256-cbc -in encfile.rar -out file.rar -pass pass:1234567890123456789012345678901234567890123456789012345678901234 -d -base64 -iv 12345678901234567890123456789012 -S 1234567890123456 -md sha-256 -iter 2048 -pbkdf2
 ```
-### All command options 
+#### All Command Options 
 ```
 openssl enc|cipher [-cipher] [-help] [-list] [-ciphers] [-in filename] [-out filename] [-pass arg] [-e] [-d] [-a] [-base64] [-A] [-k password] [-kfile filename] [-K key] [-iv IV] [-S salt] [-salt] [-nosalt] [-z] [-md digest] [-iter count] [-pbkdf2] [-saltlen size] [-p] [-P] [-bufsize number] [-nopad] [-v] [-debug] [-none] [-engine id] [-rand files] [-writerand file] [-provider name] [-provider-path path] [-propquery propq]
 ```

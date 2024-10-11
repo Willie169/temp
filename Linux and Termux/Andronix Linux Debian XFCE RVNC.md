@@ -6,10 +6,6 @@
 ```
 pkg update -y && pkg install wget curl proot tar -y && wget https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/Installer/Debian/debian-xfce.sh -O debian-xfce.sh && chmod +x debian-xfce.sh &&  bash debian-xfce.sh
 ```
-### Uninstallation of Debian and XFCE
-```
-wget https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/Uninstall/Debian/UNI-debian.sh && chmod +x UNI-debian.sh && bash UNI-debian.sh
-```
 ### Time zone setup
 ```
 sudo ln -sf /usr/share/zoneinfo/Asia/Taipei /etc/localtime
@@ -52,6 +48,10 @@ pulseaudio --start
 ### Installation 
 ```
 pkg update -y && pkg install wget curl proot tar -y && wget https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/Installer/Debian/debian.sh -O debian.sh && chmod +x debian.sh && bash debian.sh
+```
+## Uninstallation of Debian
+```
+wget https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/Uninstall/Debian/UNI-debian.sh && chmod +x UNI-debian.sh && bash UNI-debian.sh
 ```
 ## Note
 Ubuntu might have some issues in installations of packages after installed.
